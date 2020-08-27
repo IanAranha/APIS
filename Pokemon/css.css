@@ -1,0 +1,15 @@
+#wrapper{
+    margin: 0 auto;
+    border: 5px solid black;
+    padding: 2em;
+    background-color: cadetblue;
+    min-height: 60em;
+}
+.pokeBox{
+    min-width: 90px;
+    min-height: 90px;
+    border: 3px solid blue;
+    border-radius: 10%;
+    display: inline-block;
+    margin: 1em;
+}
