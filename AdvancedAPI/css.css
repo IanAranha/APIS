@@ -1,0 +1,26 @@
+#wrapper{
+    margin: 5% 5%;
+    border: 5px solid black;
+    padding: 2em;
+    background-color: cadetblue;
+    height: auto;
+    text-align: center;
+    width: 20%;
+    height: 80%;
+}
+
+#midwrapper{
+    margin:20%;
+    list-style-position: inside;
+    text-align: left;
+}
+
+#pic{
+    min-width: 130px;
+    min-height: 130px;
+}
+
+img{
+    width: 130px;
+    height: 130px;
+}
