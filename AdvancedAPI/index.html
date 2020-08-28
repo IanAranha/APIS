@@ -22,6 +22,7 @@
             $("#pic").html('<img class="pokemon" src="http://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"></div>')
 
             $.get("https://pokeapi.co/api/v2/pokemon/1/", function(res){
+                console.log(res);
                 var html_str = "";
                 html_str += "<h4>Types</h4><ul>";
                 for(var i = 0; i < res.types.length; i++){

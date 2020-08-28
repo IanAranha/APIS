@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <title>Pokedex</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="leftBox"></div>
+        <div id="rightBox">
+            <h1>Pokedex</h1>
+            <div id="name"></div>
+            <div id="image"></div>
+            <div id="height"></div>
+            <div id="weight"></div>
+            <div id="types"></div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            for(var x = 1; x < 152; x++)
+            {
+                $("#leftBox").append('<div class="pokeBox"><img class="pokemon" id="'+x+'" src="http://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+x+'.png"></div>')
+            }
+
+            $(document).on('click', "img", function(){
+                var id = this.id;
+                console.log(id)
+                var html_Str='https://pokeapi.co/api/v2/pokemon/'+id;
+                console.log(html_Str);
+                $.get(html_Str, function(res){
+                    console.log(res);
+                    var name= res.name;
+                    var height= res.height;
+                    var weight=res.weight;
+                    console.log(name);
+                    $("#name").html("<h2>Name: "+name+"</h2>");
+                    var image_string='http://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+id+'.png'
+                    console.log(image_string);
+                    $("#image").html('<div id="pokeBox"> <img src="'+image_string+'"></div>')
+                    console.log(height);
+                    $("#height").html("<h4>Height: "+height+"</h4>");
+                    console.log(weight);
+                    $("#weight").html("<h4>Weight: "+weight+"</h4>");
+                    var typeString="<h4>Types</h4><ul>"
+                    for(var x=0; x<res.types.length;x++){
+                        console.log(res.types[x].type.name)
+                        typeString+="<li>"+res.types[x].type.name+"</li>";
+                    }
+                    typeString+="</ul>";
+                    $("#types").html(typeString);
+
+
+                },"json")
+
+            })
+        });
+    </script>
+</body>
+</html>
