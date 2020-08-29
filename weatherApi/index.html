@@ -37,7 +37,13 @@
             $("#submitForecast").click(function(){
                 //extract information from the form
                 var cityName=$('input[name="city"]').val();
-                var code="0a19125345c8479a02d63194d07cd85b";
+
+
+
+                var code="XXXXXXX"; // <--------You must insert API Key here before running program!!!
+
+
+
                 var html_string= `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${code}`;
                 console.log(html_string)
                 $.get(html_string,function(res){
