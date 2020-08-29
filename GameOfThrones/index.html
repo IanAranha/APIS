@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <title>GAME OF THRONES</title>
+</head>
+<body>
+    <div class="container">
+        <div class="element">
+            <img id="17" class= "icon" src="baratheon.png" alt="HOUSE OF BARATHEON">
+        </div>
+        <div class="element">
+            <img id="229" class= "icon" src="lannister.jpg" alt="HOUSE OF LANNISTER">
+        </div>
+        <div class="element">
+            <img id="362" class= "icon" src="stark.jpg" alt="HOUSE OF STARK">
+        </div>
+        <div class="element">
+            <img id= "378" class= "icon" src="targaryen.jpg" alt="HOUSE OF TARGARYEN">
+        </div>
+        <fieldset>
+            <legend><h2>House Details</h2></legend>
+            <div id="houseName"></div>
+            <div id="motto"></div>
+            <div id="currentLord"></div>
+            <div id="titles"></div>
+        </fieldset>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(".icon").click(function(){
+                var id = this.id;
+                console.log(id);
+                $.get('https://www.anapioficeandfire.com/api/houses/'+id, function(res){
+                    console.log(res)
+                    console.log(res.name);
+                    $("#houseName").html('<h2>HOUSE NAME: '+res.name+"</h2>");
+                    console.log(res.words);
+                    $("#motto").html('<h2>MOTTO: '+res.words+"</h2>");
+                    var title_string="<h3>Titles:</h3><ul>"
+                    for(var i=0; i<res.titles.length; i++)  
+                    {
+                        console.log(res.titles[i]);
+                        title_string+="<ul><li>"+res.titles[i]+"</li></ul>"
+                    }
+                    $("#titles").html(title_string);
+
+                    if(res.currentLord){
+                        var currentLord= new URL(res.currentLord);
+                        var newURL= currentLord.toString();
+                        console.log(newURL);
+                        $.get(newURL, function(r){
+                            console.log(r);
+                            console.log(r.name);
+                            var cLord = r.name
+                            $("#currentLord").html("<h3>Current Lord: "+cLord+"</h3>");
+                        }, "json")
+                    } else {
+                        console.log("No data on current Lord");
+                        $("#currentLord").html("<h3>Current Lord: No data on current Lord</h3>");
+                    }
+                }, "json");
+            });
+        });
+    </script>
+</body>
+</html>
