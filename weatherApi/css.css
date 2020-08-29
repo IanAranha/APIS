@@ -1,0 +1,39 @@
+  .container{
+    position:relative;
+    width:55vw;
+    height: 90vh;
+    border: 8px solid black;
+    margin: auto;
+    background-color: steelblue;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .element{
+    position:absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(78, 184, 203);
+    width: 30vw; 
+    min-height: 25vw;
+    height: auto;
+    border: 5px solid blue;
+  }
+
+  .form{
+    position: absolute;
+    top: 10%; left: 50%;
+    transform: translate(-50%, -50%)
+  }
+  
+  /* just aesthetics */
+  body{
+    height: 100vh;
+    display:flex;
+    background: azure;
+  }
+  
+  
+  #buttons{
+      line-height: 3em;
+  }

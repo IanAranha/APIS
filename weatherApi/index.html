@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <title>WEATHER FORECASTER</title>
+</head>
+<body>
+    <div class="container">
+        <form class="form">
+            <label for="city">City: </label>
+            <input type="text" name="city" placeholder="Enter city name">
+            <div id="buttons">
+                <button id="submitCurrent">CLICK FOR CURRENT</button>
+                <button id="submitForecast">CLICK FOR FORECAST</button>
+            </div>
+        </form>
+        <div class="element">
+            <div id="city"></div>
+            <div id="temp"></div>
+            <div id="humidity"></div>
+            <div id="feels_like"></div>
+            <div id="forecast"></div>
+            <div id="wind_speed"></div>
+            <div id="trivial_data">
+                <!-- <p id="longitude"></p>
+                <p id="latitude"></p> -->
+            </div>
+            <p id="longitude"></p>
+            <p id="latitude"></p>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#submitForecast").click(function(){
+                //extract information from the form
+                var cityName=$('input[name="city"]').val();
+                var code="0a19125345c8479a02d63194d07cd85b";
+                var html_string= `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${code}`;
+                console.log(html_string)
+                $.get(html_string,function(res){
+                    console.log(res)
+                    console.log(res.name)
+                    $("#city").html("<h4>Four hour forecast for "+res.name+"</h4>");
+                    console.log(res.main.temp);
+                    $("#temp").html("<p>Temp: "+res.main.temp+"&deg; </p>");
+                    console.log(res.main.humidity);
+                    $("#humidity").html("<p>Humidity: "+res.main.humidity+"&#37; </p>");
+                    console.log(res.main.feels_like)
+                    $("#feels_like").html("<p>Feels Like: "+res.main.feels_like+"&deg; </p>");
+                    console.log("Forecast:");
+                    console.log(res.weather[0].description)
+                    $("#forecast").html("<p>Forecast: "+res.weather[0].description+"</p>");
+                    console.log(res.wind.speed)
+                    $("#wind_speed").html("<p>Wind Speed: "+res.wind.speed+"</p>");
+                    $("#trivial_data").html("<h4><u>Trivial Data about </u></hr>"+ res.name);
+                    console.log("Longitude: "+res.coord.lon + "&deg;");
+                    $("#longitude").html("<p>Longitude: "+res.coord.lon+"</p>");
+                    console.log("Latitude: "+res.coord.lat)
+                    $("#latitude").html("<p>Latitude: "+res.coord.lat+"</p>");
+                },"json");
+                return false;
+            });
+            $("#submitCurrent").click(function(){
+                //extract information from the form
+                var cityName=$('input[name="city"]').val();
+                var code="0a19125345c8479a02d63194d07cd85b";
+                var html_string= `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${code}`;
+                console.log(html_string)
+                $.get(html_string,function(res){
+                    console.log(res)
+                    console.log(res.name)
+                    $("#city").html("<h4>Current conditions for "+res.name+"</h4>");
+                    console.log(res.main.temp);
+                    var currentTemp_K=res.main.temp
+                    var currentTemp_F = ((currentTemp_K - 273.15) * 1.8 + 32).toFixed(2);
+                    console.log(currentTemp_F)
+                    $("#temp").html("<p>Temp: "+currentTemp_F+"&deg; </p>");
+                    console.log(res.main.humidity);
+                    $("#humidity").html("<p>Humidity: "+res.main.humidity+"&#37; </p>");
+                    console.log(res.main.feels_like);
+                    var feels_like_K = res.main.feels_like;
+                    var feels_like_F = ((feels_like_K - 273.15) * 1.8 + 32).toFixed(2);
+                    console.log(feels_like_F)
+                    $("#feels_like").html("<p>Feels Like: "+feels_like_F+"&deg; </p>");
+                    console.log(res.weather[0].description)
+                    $("#forecast").html("<p>Currently: "+res.weather[0].description+"</p>");
+                    console.log(res.wind.speed)
+                    $("#wind_speed").html("<p>Wind Speed: "+res.wind.speed+"</p>");
+                    $("#trivial_data").html("<h4><u>Trivial Data about </u></hr>"+ res.name);
+                    console.log("Longitude: "+res.coord.lon + "&deg;");
+                    $("#longitude").html("<p>Longitude: "+res.coord.lon+"</p>");
+                    console.log("Latitude: "+res.coord.lat)
+                    $("#latitude").html("<p>Latitude: "+res.coord.lat+"</p>");
+                },"json");
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>
